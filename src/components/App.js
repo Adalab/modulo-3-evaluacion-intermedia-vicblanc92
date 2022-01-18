@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 function App() {
   const [search, setSearch] = useState('');
-  const [data, setData] = useState(adalabers);
+  const [data, setData] = useState(adalabers.results);
 
   const [name, setName] = useState('');
   const [counselor, setCounselor] = useState('');
@@ -39,12 +39,12 @@ function App() {
     setData([...data, newAdalaber]);
   };
 
-  const htmlAdalaber = adalabers.results.map((adalaber) => {
+  const htmlAdalaber = data.map((eachAdalaber) => {
     return (
-      <tr>
-        <td>{adalaber.name}</td>
-        <td>{adalaber.counselor}</td>
-        <td>{adalaber.speciality}</td>
+      <tr key={eachAdalaber.id}>
+        <td>{eachAdalaber.name}</td>
+        <td>{eachAdalaber.counselor}</td>
+        <td>{eachAdalaber.speciality}</td>
       </tr>
     );
   });
