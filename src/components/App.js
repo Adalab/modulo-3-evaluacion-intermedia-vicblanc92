@@ -5,43 +5,47 @@ import { useState } from 'react';
 
 function App() {
   const [search, setSearch] = useState('');
-  const [data, setData] = useState(adalabers);
-
-  const [name, setName] = useState('');
-  const [counselor, setCounselor] = useState('');
-  const [speciality, setSpeciality] = useState('');
+  const [data, setData] = useState([]);
+  const [newAdalaber, setNewAdalaber] = useState({
+    name: '',
+    counselor: '',
+    speciality: '',
+  });
 
   const [select, setSelect] = useState('');
 
+  const handleChangeSelect = (ev) => {
+    setSelect(ev.currentTarget.value);
+  };
   const handleChangeSearch = (ev) => {
     setSearch(ev.currentTarget.value);
   };
   const handleChangeAddName = (ev) => {
-    setName(ev.currentTarget.value);
+    setNewAdalaber({
+      ...newAdalaber,
+      name: ev.currentTarget.value,
+    });
   };
   const handleChangeAddCounselor = (ev) => {
-    setCounselor(ev.currentTarget.value);
+    setNewAdalaber({
+      ...newAdalaber,
+      counselor: ev.currentTarget.value,
+    });
   };
   const handleChangeAddSpeciality = (ev) => {
-    setSpeciality(ev.currentTarget.value);
-  };
-  const handleChangeSelect = (ev) => {
-    setSelect(ev.currentTarget.value);
+    setNewAdalaber({
+      ...newAdalaber,
+      speciality: ev.currentTarget.value,
+    });
   };
 
-  const handleClickAdd = (ev) => {
-    ev.preventDefault();
-    const newAdalaber = {
-      name: name,
-      counselor: counselor,
-      speciality: speciality,
-    };
+  const handleClickAdd = () => {
     setData([...data, newAdalaber]);
   };
 
   const htmlAdalaber = adalabers.results.map((adalaber) => {
     return (
-      <tr>
+      <tr key={adalaber.id}>
         <td>{adalaber.name}</td>
         <td>{adalaber.counselor}</td>
         <td>{adalaber.speciality}</td>
@@ -78,18 +82,24 @@ function App() {
         </table>
       </>
 
-      <h1>Añadir una nueva adalaber</h1>
-      <input onChange={handleChangeAddName} value={name}></input>
+      <form onSubmit={(ev) => ev.preventDefault()}>
+        <h1>Añadir una nueva adalaber</h1>
+        <input onChange={handleChangeAddName} value={newAdalaber.name}></input>
 
-      <input onChange={handleChangeAddCounselor} value={counselor}></input>
+        <input
+          onChange={handleChangeAddCounselor}
+          value={newAdalaber.counselor}
+        ></input>
 
-      <input onChange={handleChangeAddSpeciality} value={speciality}></input>
+        <input
+          onChange={handleChangeAddSpeciality}
+          value={newAdalaber.speciality}
+        ></input>
 
-      <input
-        type="submit"
-        value="Añadir una nueva Adalaber"
-        onClick={handleClickAdd}
-      />
+        <button value="Añadir una nueva Adalaber" onClick={handleClickAdd}>
+          Añadir una nueva adalaber
+        </button>
+      </form>
     </>
   );
 }
