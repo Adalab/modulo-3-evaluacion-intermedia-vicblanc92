@@ -1,1 +1,1 @@
-# react starter kit
+# evaluación intermedia
