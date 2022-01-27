@@ -1,17 +1,23 @@
 import '../styles/App.scss';
 import '../service/localStorage';
-import adalabers from '../data/adalabers.json';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
+import getAdalabersFromApi from '../services/getAdalabersFromApi';
 function App() {
   const [search, setSearch] = useState('');
-  const [data, setData] = useState(adalabers.results);
+  const [data, setData] = useState([]);
 
   const [name, setName] = useState('');
   const [counselor, setCounselor] = useState('');
   const [speciality, setSpeciality] = useState('');
 
   const [select, setSelect] = useState('');
+
+  useEffect(() => {
+    getAdalabersFromApi().then((adalabersResponse) => {
+      setData(adalabersResponse);
+    });
+  }, []);
 
   const handleChangeSearch = (ev) => {
     setSearch(ev.currentTarget.value);
