@@ -1,5 +1,4 @@
 import '../styles/App.scss';
-import '../service/localStorage';
 import { useState, useEffect } from 'react';
 
 import getAdalabersFromApi from '../services/getAdalabersFromApi';
@@ -50,9 +49,9 @@ function App() {
       .filter((adalaber) =>
         adalaber.name.toLowerCase().includes(search.toLowerCase())
       )
-      .map((adalaber) => {
+      .map((adalaber, index) => {
         return (
-          <tr key={adalaber.id}>
+          <tr key={index}>
             <td>{adalaber.name}</td>
             <td>{adalaber.counselor}</td>
             <td>{adalaber.speciality}</td>
